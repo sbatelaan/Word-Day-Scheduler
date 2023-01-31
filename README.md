@@ -39,6 +39,9 @@ WHEN I refresh the page
 THEN the saved events persist
 
 
+https://sbatelaan.github.io/Word-Day-Scheduler/
+
+
 
 ![Screenshot (17)](https://user-images.githubusercontent.com/119352363/215899278-3e10e41d-e33d-452c-aeee-2e4e7e329eec.png)
 
