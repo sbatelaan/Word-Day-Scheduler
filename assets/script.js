@@ -1,61 +1,58 @@
+//create function to wrap all JS to run after page is loaded
 $(document).ready(function () {
-  //First, get todays date on top of page
 
+
+  //First, get todays date on top of page by referencing day.js documentation
   var todayDate = dayjs();
   $("#currentDay").text(todayDate.format("dddd, MMMM D"));
 
-  //create variable to track the current hour
-  var hourTime = dayjs().format("H");
+  
+  //calling hourColor function to set the appropriate color according to current hour
+  hourColor();
 
+  function hourColor() {
+    //create a variable to reference the current hour we are in
+    var hourTime = dayjs().format("H");
+    //creating a function to look at each div with the time-block class
+    $(".time-block").each(function() {
+      //created a variable using 'this' to seperate the hour associated with each time block and turn it into a number 
+      var hourCode = parseInt($(this).attr('id').split('hour-')[1]);
+      //if else statements to compare each time blocks hour to the current hour and set the color accordingly
+      if (hourTime == hourCode) {
+        $(this).addClass("present")
+        $(this).removeClass("future")
+        $(this).removeClass("past")
+      } else if (hourTime > hourCode) {
+        $(this).addClass("past")
+        $(this).removeClass("present")
+        $(this).removeClass("future")
+      } else {
+        $(this).addClass("future")
+        $(this).removeClass("present")
+        $(this).removeClass("past")
+      }
 
-
-
-
-
-
-  //write function to handle save button
-  for (let i = 9; i < 17; i++) {
-    var dataStore = localStorage.getItem('hour-' + i)
-    $('#hour-' + i + ' .description').val(dataStore)
-    // var id = $(this).parent().attr("id")
-    // var hourColor = id.slice(4)
-    console.log(dataStore)
+    })
   }
 
+  //for loop starting at 9am stopping at 5pm
+  //this for loop is retrieving stored data and displaying in the correct time block
+  for (let i = 9; i < 18; i++) {
+    var dataStore = localStorage.getItem('hour-' + i);
+    $('#hour-' + i + ' .description').val(dataStore);
+  }
 
+  //function with event listener for the save button
+  //assigning the id as thr 'key' and the user input from the text area as the value
+  //storing in local storage
   $(".saveBtn").click(function () {
     var id = $(this).parent().attr("id");
     var textArea = $(this).siblings(".description").val();
     localStorage.setItem(id,textArea);
   });
 
-  console.log(hourTime);
-
-  // function hourMon() {
-  //   var thisHour = hourTime
-  //   console.log(hourTime)
-  // }
-
-  // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-  // the code isn't run until the browser has finished rendering all the elements
-  // in the html.
-
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
-});
+  //it wasn't asked but I added a clear storage button for practicality.
+  $(".clearStorage").click(function() {
+    localStorage.clear()
+  })
+  });
