@@ -1,6 +1,6 @@
 # Word-Day-Scheduler
 
-##User Story
+## User Story
 
 AS AN employee with a busy schedule
 
@@ -10,7 +10,7 @@ SO THAT I can manage my time effectively
 
 
 
-##Acceptance Criteria
+## Acceptance Criteria
 
 GIVEN I am using a daily planner to create a schedule
 
