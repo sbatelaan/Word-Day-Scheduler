@@ -1,7 +1,45 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
+$(document).ready(function () {
+  //First, get todays date on top of page
+
+  var todayDate = dayjs();
+  $("#currentDay").text(todayDate.format("dddd, MMMM D"));
+
+  //create variable to track the current hour
+  var hourTime = dayjs().format("H");
+
+
+
+
+
+
+
+  //write function to handle save button
+  for (let i = 9; i < 17; i++) {
+    var dataStore = localStorage.getItem('hour-' + i)
+    $('#hour-' + i + ' .description').val(dataStore)
+    // var id = $(this).parent().attr("id")
+    // var hourColor = id.slice(4)
+    console.log(dataStore)
+  }
+
+
+  $(".saveBtn").click(function () {
+    var id = $(this).parent().attr("id");
+    var textArea = $(this).siblings(".description").val();
+    localStorage.setItem(id,textArea);
+  });
+
+  console.log(hourTime);
+
+  // function hourMon() {
+  //   var thisHour = hourTime
+  //   console.log(hourTime)
+  // }
+
+  // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
+  // the code isn't run until the browser has finished rendering all the elements
+  // in the html.
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
